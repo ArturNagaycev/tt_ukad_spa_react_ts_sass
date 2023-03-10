@@ -1,19 +1,18 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getProducts } from '../api/products';
 import { Product } from '../types/Product';
+import { UrlParams } from '../types/UrlParams';
 
 type ProductsState = {
   products: Product[];
   isLoading: boolean;
   error: string;
-  lastFetchedTime: number;
 };
 
 const initialState: ProductsState = {
   products: [],
   isLoading: false,
   error: '',
-  lastFetchedTime: new Date('0').getTime(),
 };
 
 export const productsSlice = createSlice({
@@ -31,7 +30,6 @@ export const productsSlice = createSlice({
         products: action.payload,
         isLoading: false,
         error: '',
-        lastFetchedTime: new Date().getTime(),
       }))
       .addCase(fetchProducts.rejected, (state) => ({
         ...state,
@@ -43,9 +41,9 @@ export const productsSlice = createSlice({
 
 export default productsSlice.reducer;
 
-export const fetchProducts = createAsyncThunk<Product[], number | undefined>(
+export const fetchProducts = createAsyncThunk<Product[], UrlParams | undefined>(
   'products/fetch',
-  (page = 1) => {
-    return getProducts(page);
+  (params = {}) => {
+    return getProducts(params);
   }
 );

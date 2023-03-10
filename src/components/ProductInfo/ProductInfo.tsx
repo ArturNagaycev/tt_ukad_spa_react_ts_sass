@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { PLACEHOLDER_URL } from '../../constants/constants';
 import { fetchProductById } from '../../features/productSlice';
 import { Loader } from '../Loader';
 import styles from './ProductInfo.module.scss';
@@ -69,7 +70,7 @@ export const ProductInfo: React.FC = () => {
           <div className={styles.info__content}>
             <div className={styles['info__image-container']}>
               <img
-                src={product?.image?.url}
+                src={product?.image?.url ?? PLACEHOLDER_URL}
                 alt={product?.name}
                 className={styles.info__image}
               />

@@ -8,6 +8,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
 import 'swiper/scss';
 import 'swiper/css/navigation';
+import { PLACEHOLDER_URL } from '../../constants/constants';
 
 export const Slider: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -49,7 +50,7 @@ export const Slider: React.FC = () => {
                 <SwiperSlide className={styles.slider__item} key={id}>
                   <ProductCard
                     id={id}
-                    imageUrl={image.url}
+                    imageUrl={image?.url ?? PLACEHOLDER_URL}
                     category={breed_group || 'No category'}
                     title={name}
                   />

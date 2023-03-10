@@ -1,8 +1,8 @@
 @import '../../styles/vars';
+@import '../../styles/extends';
 
 .pagination {
-  display: flex;
-  justify-content: center;
+  @extend %flex-horizontal-centering;
   flex-wrap: wrap;
   gap: 10px;
 
@@ -17,29 +17,34 @@
   }
 
   &__button {
-    padding: 5px;
-    width: 35px;
-    height: 100%;
-    border: 1px solid $color-border-card;
-    border-radius: 5px;
-
-    font-size: 20px;
-    text-align: center;
+    @extend %flex-vertical-centering;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border: 2px solid $color-border-card;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 19px;
+    line-height: 24px;
+    color: $color-text-pagination;
 
     &:hover {
-      border-color: $color-text-black;
+      border-color: $color-text-pagination;
     }
 
     &:disabled {
-      border: 1px solid $color-border-card;
+      border: 2px solid $color-border-card;
       color: $color-border-card;
       cursor: default;
     }
 
     &--active {
-      background-color: $color-main;
-      color: $color-white;
-      border-color: $color-main;
+      border-color: $color-text-pagination;
     }
+  }
+
+  &__icon {
+    height: 20px;
+    color: $color-icon;
   }
 }

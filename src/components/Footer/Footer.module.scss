@@ -7,6 +7,7 @@
 
   &__wrapper {
     @extend %flex-vertical-centering;
+    width: $width-container;
     padding: 27px 29px;
   }
 

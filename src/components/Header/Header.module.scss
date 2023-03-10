@@ -7,10 +7,18 @@
 
   &__wrapper {
     @extend %flex-vertical-centering;
-    padding: 25px 20px;
+    justify-content: space-between;
+    width: $width-container;
+    height: 80px;
+    padding: 0 20px;
+  }
+
+  &__navigation {
+    @extend %flex-vertical-centering;
   }
 
   &__logo {
+    display: flex;
     transition: transform $transition-time;
 
     &:hover {

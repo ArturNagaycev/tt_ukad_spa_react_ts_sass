@@ -1,6 +1,6 @@
 import React from 'react';
 import { Slider } from '../Slider';
-import { ProductList } from '../ProductList';
+import { ProductsPage } from '../ProductsPage';
 import { NotFountPage } from '../NotFoundPage';
 import { ProductInfo } from '../ProductInfo';
 import styles from './Content.module.scss';
@@ -13,7 +13,7 @@ export const Content: React.FC = () => (
         <Route path="/" element={<Slider />} />
         <Route path="/home" element={<Navigate to="/" replace />} />
         <Route path="/products">
-          <Route index element={<ProductList />} />
+          <Route index element={<ProductsPage />} />
           <Route path=":productId" element={<ProductInfo />} />
         </Route>
         <Route path="*" element={<NotFountPage />} />

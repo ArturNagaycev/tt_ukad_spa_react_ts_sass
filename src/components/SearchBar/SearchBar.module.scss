@@ -1,0 +1,44 @@
+@import '../../styles/vars';
+
+.search {
+  display: flex;
+  align-items: center;
+  width: 234px;
+  height: 50px;
+
+  &__container {
+    position: relative;
+  }
+
+  &__icon {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 23px;
+    transform: translate(0, -50%);
+
+    &-white {
+      color: $color-white;
+    }
+
+    &-gray {
+      color: $color-icon;
+    }
+  }
+
+  &__text {
+    width: 100%;
+    padding: 0 0 0 46px;
+    font-family: inherit;
+    font-size: 19px;
+    line-height: 28px;
+    color: $color-text-gray;
+    background-color: transparent;
+    border: none;
+    outline: none;
+
+    &::placeholder {
+      color: $color-text-gray;
+    }
+  }
+}

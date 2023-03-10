@@ -1,25 +1,40 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { useMemo, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { useAppSelector } from '../../app/hooks';
 import { getPages } from '../../utils/getPages';
+import { scrollUp } from '../../utils/scrollUp';
+import Icon from '../Icon/Icon';
 import styles from './Pagination.module.scss';
 
 const TOTAL_PAGES_NUMBER = 18;
 
 type Props = {
-  currentPage: number;
-  setCurrentPage: (prevValue: number) => void;
+  isSearchedProducts: boolean;
+  initialPage: number;
 };
 
 export const Pagination: React.FC<Props> = ({
-  currentPage,
-  setCurrentPage,
+  isSearchedProducts,
+  initialPage,
 }) => {
-  const handleLeftButtonClick = () => {
-    setCurrentPage(currentPage - 1);
-  };
+  const [currentPage, setCurrentPage] = useState(initialPage);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { products } = useAppSelector((state) => state.products);
 
-  const handleRightButtonClick = () => {
-    setCurrentPage(currentPage + 1);
+  const totalPagesNumber = useMemo(() => {
+    return isSearchedProducts
+      ? Math.ceil(products.length / 10)
+      : TOTAL_PAGES_NUMBER;
+  }, [products]);
+
+  const onPaginationClick = (page: number) => {
+    setCurrentPage(page);
+    searchParams.set('page', String(page));
+    setSearchParams(searchParams);
+    if (isSearchedProducts) {
+      scrollUp();
+    }
   };
 
   return (
@@ -27,20 +42,20 @@ export const Pagination: React.FC<Props> = ({
       <li className={styles.pagination__item}>
         <button
           className={styles.pagination__button}
-          onClick={handleLeftButtonClick}
+          onClick={() => onPaginationClick(currentPage - 1)}
           disabled={currentPage === 1}
         >
-          {'<'}
+          <Icon icon="chevron-thin-left" className={styles.pagination__icon} />
         </button>
       </li>
 
-      {getPages(TOTAL_PAGES_NUMBER).map((page, index) => (
+      {getPages(totalPagesNumber).map((page, index) => (
         <li className={styles.pagination__item} key={index}>
           <button
             className={classNames(styles.pagination__button, {
               [styles['pagination__button--active']]: page === currentPage,
             })}
-            onClick={() => setCurrentPage(page)}
+            onClick={() => onPaginationClick(page)}
           >
             {page}
           </button>
@@ -50,10 +65,10 @@ export const Pagination: React.FC<Props> = ({
       <li className={styles.pagination__item}>
         <button
           className={styles.pagination__button}
-          onClick={handleRightButtonClick}
-          disabled={currentPage === TOTAL_PAGES_NUMBER}
+          onClick={() => onPaginationClick(currentPage + 1)}
+          disabled={currentPage === totalPagesNumber}
         >
-          {'>'}
+          <Icon icon="chevron-thin-right" className={styles.pagination__icon} />
         </button>
       </li>
     </ul>

@@ -1,0 +1,32 @@
+@import '../../styles/vars';
+@import '../../styles/mixins';
+
+.products-list {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 20px;
+  margin-bottom: 40px;
+
+  @include onTablet {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include onLaptop {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+
+  @include onDesktop {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  &__product {
+    transition: transform $transition-time;
+      
+    &:hover {
+      transform: scale(105%);
+    }
+  }
+}
+
+
